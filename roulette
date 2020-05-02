@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery</title>
+    <style>
+        .main {
+            width: 200px;
+            text-align:center;
+        }
+        table {
+            margin: 0 auto;
+        }
+        td {
+            padding: 10px 10px;
+        }
+        p {
+            margin: 0;
+        }
+        .spin {
+            background-color: red;
+        }
+        .stop {
+            background-color: orange;
+        }
+        
+    </style>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+        //var start_flag = false;
+        var interval_id;
+        var cell=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+        var num =1;
+
+        function roulette_start() {
+            //if(start_flag === false){
+            interval_id = setInterval(spin,100);
+                //start_flag =true;
+            //}
+            $('#start').prop('disabled', true);
+            $('#stop').prop('disabled', false);
+            $('#reset').prop('disabled', false);
+        }
+        
+        function spin() {
+            //$('#'+num).css('backgroundColor','white');
+            $('#'+num).removeClass('spin');
+            var random = Math.floor(Math.random()*cell.length);
+            num = cell[random];
+            //$('#'+num).css('backgroundColor','red');
+            $('#'+num).addClass('spin');
+        }
+
+        function roulette_stop() {
+            clearInterval(interval_id);
+            //start_flag = false;
+            //$('#'+num).css('backgroundColor','orange');
+            $('#'+num).addClass('stop');
+            $('#'+num).removeClass('spin');
+            cell.splice(cell.indexOf(num),1);
+            console.log(cell);
+            num = 0;
+            
+            $('#start').prop('disabled', false);
+            $('#stop').prop('disabled', true);
+            $('#reset').prop('disabled', false);
+            if(cell.length===0){
+                $('#start').prop('disabled', true);
+            }
+        }
+            
+        function roulette_reset() {
+            clearInterval(interval_id);
+            //start_flag =false;
+            cell = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+            //$('td').css('backgroundColor','white');
+            $('.spin').removeClass('spin');
+            $('.stop').removeClass('stop');
+            
+            $('#start').prop('disabled', false);
+            $('#stop').prop('disabled', true);
+            $('#reset').prop('disabled', true);
+        }
+        
+        $(function() {
+            $('#start').click(roulette_start);
+            $('#stop').click(roulette_stop);
+            $('#reset').click(roulette_reset);
+            
+            $('#start').prop('disabled', false);
+            $('#stop').prop('disabled', true);
+            $('#reset').prop('disabled', true);
+        });
+            
+    </script>
+</head>
+<body>
+  <div class="main">
+    <table id="roulette" border=1>
+        <tbody>
+            <tr class="1">
+                <td id='1'>1</td><td id='2'>2</td><td id='3'>3</td><td id='4'>4</td>
+            </tr>
+            <tr class="2">
+                <td id='5'>5</td><td id='6'>6</td><td id='7'>7</td><td id='8'>8</td>
+            </tr>
+            <tr class="3">
+                <td id='9'>9</td><td id='10'>10</td><td id='11'>11</td><td id='12'>12</td>
+            </tr>
+            <tr class="4">
+                <td id='13'>13</td><td id='14'>14</td><td id='15'>15</td><td id='16'>16</td>
+            </tr>
+        </tbody>
+    </table>
+    <button id="start">スタート</button>
+    <button id="stop">ストップ</button>
+    <button id="reset">リセット</button>
+  </div>
+</body>
+</html>
