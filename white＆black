@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>実行タイミング</title>
+    <script>
+        /* 課題処理を追加 */
+       function white_text(){
+           var white = document.getElementById('white_black');
+           white.style.color = 'white';
+           white.style.backgroundColor = 'black';
+           }
+       function black_text(){
+           var black = document.getElementById('white_black');
+            black.style.color = 'black';
+            black.style.backgroundColor = 'white';
+       }
+       window.onload = function(){
+           var black = document.getElementById('black');
+           black.addEventListener('click',white_text,false);
+           var white = document.getElementById('white');
+           white.addEventListener('click',black_text,false);
+       }
+    </script>
+</head>
+<body>
+    <p id="white_black">ボタンクリックにより背景色と文字色を変化</p>
+    <button id="black">背景黒</button>
+    <button id="white">背景白</button>
+</body>
+</html>
