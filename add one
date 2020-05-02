@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+   <meta charset="UTF-8">
+   <title>一定間隔で繰り返し実行</title>
+    <script>
+        var n= 1; //文字数　変数の定義と値の代入
+        var intervalId;//変数を定義 箱を用意
+
+        function word(){
+        	var text = document.getElementById('text').value;//text boxに入力された文字を取得
+        	document.getElementById('box').innerHTML//id boxの要素を取り出す
+        	= text.substring(0, n);//substringメソッドは文字列の中の指定された範囲の部分文字列を返します。
+        	if (n<text.length ) { //n文字数
+        		n++;//１個ずつ増えていく
+        	} else {　//そうでなければ
+        		clearInterval(intervalId);　//setIntervalによる繰り返し動作を停止
+        	}
+        }
+        function two() {
+            //n=1;
+        	clearInterval(intervalId);//setIntervalによる繰り返し動作を停止
+        	intervalId=setInterval(word, 2000);//２秒ごとに関数wordを実行
+            }
+        window.onload=function(){
+        	var button = document.getElementById('button');
+        	button.addEventListener('click', two, false );//クリックすると関数twoを実行
+        }
+    </script>
+</head>
+<body>
+        <input id="text" type="text" value="">
+        <button id="button">一文字ずつ表示</button>
+        <div id="box"></div>
+</body>
+</html>
