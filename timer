@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>タイマー</title>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+        var interval_id;
+        var start_click = false;
+        var time = 180;
+            
+        function count_start(){
+            if(start_click === false){
+                interval_id = setInterval(count_down, 1000);
+                start_click = true;
+                }
+            }
+        function count_down(){
+            $('#display').html(time);
+            if (time === 1){
+                $('#display').html('TIME UP!');
+                clearInterval(interval_id);
+            } else{
+                time--;
+                var min = Math.floor(time / 60);//179割る60=2.... 小数点以下切り捨て
+                var sec = time % 60;//179割る60=2余り59 余りを出す
+                if (sec<10){
+                    display.innerHTML='0'+min+':0'+sec;　
+                }else{
+                    display.innerHTML ='0'+min+':'+sec;
+                }
+            }
+        }
+            function count_stop(){
+                clearInterval(interval_id);
+                start_click = false;
+            }
+            
+            function count_reset(){
+                clearInterval(interval_id);
+                time = 180;
+                $('#display').html('03:00');
+            }
+            
+            $(function() {
+            $('#start').click(count_start);
+            $('#stop').click(count_stop);
+            $('#reset').click(count_reset);
+            });
+        </script>
+</head>
+<body>
+        <div id="timer">
+        <div id ="box">
+        <p id='display'>03:00</p>
+        <div id ='button'>
+        <button id="start">スタート</button>
+        <button id="stop">ストップ</button>
+        <button id="reset">リセット</button>
+        </div>
+        </div>
+        </div>
+</body>
+</html>
